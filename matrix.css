@@ -2,18 +2,22 @@ body {
 	background-color: black;
 }
 
-td.visible {
+li.visible {
 	color: green;
 }
 
-td.appear {
+li.appear {
 	color: white;
 }
 
-td.invisible {
+li.invisible {
 	color: black;
 }
 
-table {
+ul {
 	float: left;
+	list-style: none;
+	padding-left: 0px;
+	margin: 2px;
+	text-align: center;
 }

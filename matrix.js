@@ -19,21 +19,18 @@ generateTable = function() {
 	var tableDiv = document.getElementById("matrix");
 
 	for (c = 0; c < columns; c++) {
-		var table = document.createElement("table");
+		var table = document.createElement("ul");
 		table.setAttribute("id", "column" + c);
 		
 		for (r = 0; r < rows; r++) {
-			var tr = document.createElement("tr");
-			
-			var td = document.createElement("td");
-			td.setAttribute("id", c + "-" + r);
-			td.setAttribute("class", "invisible");
-			td.onclick = toggleColor;
+			var li = document.createElement("li");
+			li.setAttribute("id", c + "-" + r);
+			li.setAttribute("class", "visible");
+			li.onclick = toggleColor;
 			var text = document.createTextNode(randomChar());
-			td.appendChild(text);
+			li.appendChild(text);
 			
-			tr.appendChild(td);
-			table.appendChild(tr);
+			table.appendChild(li);
 		}
 
 		tableDiv.appendChild(table);
