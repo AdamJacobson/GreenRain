@@ -1,0 +1,19 @@
+body {
+	background-color: black;
+}
+
+td.visible {
+	color: green;
+}
+
+td.appear {
+	color: white;
+}
+
+td.invisible {
+	color: black;
+}
+
+table {
+	float: left;
+}
