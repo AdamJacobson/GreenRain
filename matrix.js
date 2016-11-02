@@ -10,30 +10,28 @@ toggleColor = function() {
 	}
 }
 
-generateTable = function() {
-	console.log("generating tables");
+// Generate the Columns for the matrix
+generateColumns = function(numCols, numRows) {
+	console.log(".generateColumns", numCols, numRows);
+	
+	var columns = [];
+	
+	for (c = 0; c < numCols; c++) {
+		columns[c] = new Column(numRows);
+		columns[c].generate();
+	}
+	
+	return columns;
+}
 
-	var rows = 25;
-	var columns = 50;
-
-	var tableDiv = document.getElementById("matrix");
-
-	for (c = 0; c < columns; c++) {
-		var table = document.createElement("ul");
-		table.setAttribute("id", "column" + c);
-		
-		for (r = 0; r < rows; r++) {
-			var li = document.createElement("li");
-			li.setAttribute("id", c + "-" + r);
-			li.setAttribute("class", "visible");
-			li.onclick = toggleColor;
-			var text = document.createTextNode(randomChar());
-			li.appendChild(text);
-			
-			table.appendChild(li);
-		}
-
-		tableDiv.appendChild(table);
+// Animate the columns using random lengths and times
+animateColumns = function(columns) {
+	var maxInterval = 800;
+	var minInterval = 200;
+	
+	for (i = 0; i < columns.length; i++) {
+		setInterval(function(index){columns[index].animate();},
+			Math.floor((Math.random() * maxInterval) + minInterval), i);
 	}
 }
 
@@ -45,5 +43,7 @@ randomChar = function() {
 
 window.onload = function() {
 	console.log("loaded");
-	generateTable();
+	
+	var cols = generateColumns(50, 25);
+	animateColumns(cols);
 }

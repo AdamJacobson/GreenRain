@@ -1,31 +1,68 @@
 function Column(height) {
 	this.height = height;
+	//console.log("Initialized a new column", height);
 	
-	var generate = function() {
-		var tableDiv = document.getElementById("matrix");
+	this.generate = function() {
+		//console.log(".generate() called");
+		
+		var matrix = document.getElementById("matrix");
+		
+		this.ul = document.createElement("ul");
+		// ul.setAttribute("id", "column" + c);
 		
 		for (r = 0; r < height; r++) {
-			var tr = document.createElement("tr");
+			var li = document.createElement("li");
+			//li.setAttribute("id", "char" + r);
+			li.setAttribute("class", "invisible");
+			li.onclick = toggleColor;
+			li.appendChild(document.createTextNode(randomChar()));
 			
-			var td = document.createElement("td");
-			td.setAttribute("id", c + "-" + r);
-			td.setAttribute("class", "invisible");
-			td.onclick = toggleColor;
-			var text = document.createTextNode(randomChar());
-			td.appendChild(text);
-			
-			tr.appendChild(td);
-			table.appendChild(tr);
+			this.ul.appendChild(li);
 		}
 
-		tableDiv.appendChild(table);
+		matrix.appendChild(this.ul);
 	}
+	
+	var head = 0;
+	var chars = 8;
+	var tail = -chars;
 	
 	this.animate = function() {
-		console.log("Created a column with " + this.height);
+		elements = this.ul.getElementsByTagName("li");
+		
+		if (elements[head]) {
+			toggleColor(elements[head]);
+		}
+		if (elements[head - 1]) {
+			toggleColor(elements[head - 1]);
+		}
+		if (elements[tail]) {
+			toggleColor(elements[tail]);
+		}
+		
+		head++;
+		tail++;
+		
+		if (head >= elements.length && tail >= elements.length) {
+			head = 0;
+			tail = -chars;
+		}
 	}
 	
+	var toggleColor = function(element) {
+		if (element.className == "invisible") {
+			element.className = "appear";
+		} else if (element.className == "appear") {
+			element.className = "visible";
+		} else if (element.className == "visible") {
+			element.className = "invisible";
+		}
+	}
+	
+	/*
 	return {
-		animate: this.animate
-	};
+		animate: this.animate,
+		generate: this.generate,
+		ul: this.ul
+	};*/
 }
