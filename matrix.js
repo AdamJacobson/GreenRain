@@ -41,9 +41,31 @@ randomChar = function() {
     return possible.charAt(Math.floor(Math.random() * possible.length));
 }
 
-window.onload = function() {
-	console.log("loaded");
+generateMatrixText = function() {
+	clearMatrix();
 	
-	var cols = generateColumns(50, 25);
+	var width = document.documentElement.clientWidth;
+	var height = document.documentElement.clientHeight;
+	
+	var numCols = Math.floor(width / 20);
+	var numRows = Math.floor(height / 20);
+	
+	var cols = generateColumns(numCols, numRows);
 	animateColumns(cols);
+}
+
+clearMatrix = function() {
+	var parent = document.getElementById("matrix");
+	var uls = document.getElementsByTagName("ul");
+	while (uls.length > 0) {
+		parent.removeChild(uls[0]);
+	}
+}
+
+window.onresize = function() {
+	generateMatrixText();
+}
+
+window.onload = function() {
+	generateMatrixText();
 }
