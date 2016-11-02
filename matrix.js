@@ -36,7 +36,7 @@ animateColumns = function(columns) {
 }
 
 randomChar = function() {
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}\|;:<>,.\"`~";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ウェブサイトのメンテナンスの下で";
 
     return possible.charAt(Math.floor(Math.random() * possible.length));
 }
