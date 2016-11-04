@@ -1,15 +1,3 @@
-toggleColor = function() {
-	console.log("animating ", this);
-	
-	if (this.className == "invisible") {
-		this.className = "appear";
-	} else if (this.className == "appear") {
-		this.className = "visible";
-	} else if (this.className == "visible") {
-		this.className = "invisible";
-	}
-}
-
 // Generate the Columns for the matrix
 generateColumns = function(numRows) {
 	var width = document.documentElement.clientWidth;
@@ -25,8 +13,6 @@ generateColumns = function(numRows) {
 		c++;
 	} while (width - columns[c - 1].getWidth() > 0)
 	
-	console.log("columns", c);
-	
 	return columns;
 }
 
@@ -41,10 +27,12 @@ animateColumns = function(columns) {
 	}
 }
 
-randomChar = function() {
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ウェブサイトのメンテナンスの下で";
-
-    return possible.charAt(Math.floor(Math.random() * possible.length));
+clearMatrix = function() {
+	var parent = document.getElementById("matrix");
+	var uls = document.getElementsByTagName("ul");
+	while (uls.length > 0) {
+		parent.removeChild(uls[0]);
+	}
 }
 
 generateMatrixText = function() {
@@ -57,14 +45,6 @@ generateMatrixText = function() {
 	
 	var cols = generateColumns(numRows);
 	animateColumns(cols);
-}
-
-clearMatrix = function() {
-	var parent = document.getElementById("matrix");
-	var uls = document.getElementsByTagName("ul");
-	while (uls.length > 0) {
-		parent.removeChild(uls[0]);
-	}
 }
 
 window.onresize = function() {

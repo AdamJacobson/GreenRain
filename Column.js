@@ -8,7 +8,6 @@ function Column(height) {
 		
 		for (r = 0; r < height; r++) {
 			var li = document.createElement("li");
-			li.setAttribute("id", "char" + r);
 			li.setAttribute("class", "invisible");
 			li.onclick = toggleColor;
 			li.appendChild(document.createTextNode(randomChar()));
@@ -17,6 +16,17 @@ function Column(height) {
 		}
 		
 		matrix.appendChild(this.ul);
+	}
+	
+	var randomChar = function() {
+		var hiragana = "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをん";
+		var katakana = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ";
+		var halfWidthKana = "ｦｧｨｩｪｫｬｭｮｯｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ";
+		var numerals = "01234567890";
+		
+		var possible = halfWidthKana + numerals;
+
+		return possible.charAt(Math.floor(Math.random() * possible.length));
 	}
 	
 	var head = 0;
@@ -47,9 +57,9 @@ function Column(height) {
 	
 	this.getWidth = function() {
 		var ulWidth = 0;
-		ulWidth += parseInt(window.getComputedStyle(this.ul, null).getPropertyValue('width'));
-		ulWidth += parseInt(window.getComputedStyle(this.ul, null).getPropertyValue('margin-left'));
-		ulWidth += parseInt(window.getComputedStyle(this.ul, null).getPropertyValue('margin-right'));
+		ulWidth += parseFloat(window.getComputedStyle(this.ul, null).getPropertyValue('width'));
+		ulWidth += parseFloat(window.getComputedStyle(this.ul, null).getPropertyValue('margin-left'));
+		ulWidth += parseFloat(window.getComputedStyle(this.ul, null).getPropertyValue('margin-right'));
 		
 		return ulWidth;
 	}
@@ -61,13 +71,15 @@ function Column(height) {
 			element.className = "visible";
 		} else if (element.className == "visible") {
 			element.className = "invisible";
+		} else {
+			element.className = "invisible";
 		}
 	}
 	
-	/*
 	return {
 		animate: this.animate,
 		generate: this.generate,
-		ul: this.ul
-	};*/
+		ul: this.ul,
+		getWidth: this.getWidth
+	};
 }
