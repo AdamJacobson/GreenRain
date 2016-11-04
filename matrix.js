@@ -11,15 +11,21 @@ toggleColor = function() {
 }
 
 // Generate the Columns for the matrix
-generateColumns = function(numCols, numRows) {
-	console.log(".generateColumns", numCols, numRows);
-	
+generateColumns = function(numRows) {
+	var width = document.documentElement.clientWidth;
 	var columns = [];
 	
-	for (c = 0; c < numCols; c++) {
+	c = 0;
+	do {
 		columns[c] = new Column(numRows);
 		columns[c].generate();
-	}
+		
+		width -= columns[c].getWidth();
+		
+		c++;
+	} while (width - columns[c - 1].getWidth() > 0)
+	
+	console.log("columns", c);
 	
 	return columns;
 }
@@ -47,10 +53,9 @@ generateMatrixText = function() {
 	var width = document.documentElement.clientWidth;
 	var height = document.documentElement.clientHeight;
 	
-	var numCols = Math.floor(width / 20);
 	var numRows = Math.floor(height / 20);
 	
-	var cols = generateColumns(numCols, numRows);
+	var cols = generateColumns(numRows);
 	animateColumns(cols);
 }
 

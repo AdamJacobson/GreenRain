@@ -1,30 +1,26 @@
 function Column(height) {
 	this.height = height;
-	//console.log("Initialized a new column", height);
 	
 	this.generate = function() {
-		//console.log(".generate() called");
-		
 		var matrix = document.getElementById("matrix");
 		
 		this.ul = document.createElement("ul");
-		// ul.setAttribute("id", "column" + c);
 		
 		for (r = 0; r < height; r++) {
 			var li = document.createElement("li");
-			//li.setAttribute("id", "char" + r);
+			li.setAttribute("id", "char" + r);
 			li.setAttribute("class", "invisible");
 			li.onclick = toggleColor;
 			li.appendChild(document.createTextNode(randomChar()));
 			
 			this.ul.appendChild(li);
 		}
-
+		
 		matrix.appendChild(this.ul);
 	}
 	
 	var head = 0;
-	var chars = 8;
+	var chars = 12;
 	var tail = -chars;
 	
 	this.animate = function() {
@@ -47,6 +43,15 @@ function Column(height) {
 			head = 0;
 			tail = -chars;
 		}
+	}
+	
+	this.getWidth = function() {
+		var ulWidth = 0;
+		ulWidth += parseInt(window.getComputedStyle(this.ul, null).getPropertyValue('width'));
+		ulWidth += parseInt(window.getComputedStyle(this.ul, null).getPropertyValue('margin-left'));
+		ulWidth += parseInt(window.getComputedStyle(this.ul, null).getPropertyValue('margin-right'));
+		
+		return ulWidth;
 	}
 	
 	var toggleColor = function(element) {

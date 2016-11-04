@@ -1,5 +1,6 @@
 body {
 	background-color: black;
+	margin: 0px;
 }
 
 li {
@@ -11,7 +12,7 @@ li {
 }
 
 li.visible {
-	color: green;
+	color: #00FE00;
 }
 
 li.appear {
