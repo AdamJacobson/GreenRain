@@ -1,10 +1,12 @@
 function Column(height) {
 	this.height = height;
 	
+	var ul;
+	
 	this.generate = function() {
 		var matrix = document.getElementById("matrix");
 		
-		this.ul = document.createElement("ul");
+		ul = document.createElement("ul");
 		
 		for (r = 0; r < height; r++) {
 			var li = document.createElement("li");
@@ -12,17 +14,17 @@ function Column(height) {
 			li.onclick = toggleColor;
 			li.appendChild(document.createTextNode(randomChar()));
 			
-			this.ul.appendChild(li);
+			ul.appendChild(li);
 		}
 		
-		matrix.appendChild(this.ul);
+		matrix.appendChild(ul);
 	}
 	
 	var randomChar = function() {
 		var hiragana = "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをん";
 		var katakana = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ";
 		var halfWidthKana = "ｦｧｨｩｪｫｬｭｮｯｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ";
-		var numerals = "01234567890";
+		var numerals = "0123456789";
 		
 		var possible = halfWidthKana + numerals;
 
@@ -33,8 +35,8 @@ function Column(height) {
 	var chars = 12;
 	var tail = -chars;
 	
-	this.animate = function() {
-		elements = this.ul.getElementsByTagName("li");
+	var animateStep = function() {
+		elements = ul.getElementsByTagName("li");
 		
 		if (elements[head]) {
 			toggleColor(elements[head]);
@@ -55,11 +57,15 @@ function Column(height) {
 		}
 	}
 	
+	this.animate = function() {
+		setInterval(function(){ animateStep(); }, 100);
+	}
+	
 	this.getWidth = function() {
 		var ulWidth = 0;
-		ulWidth += parseFloat(window.getComputedStyle(this.ul, null).getPropertyValue('width'));
-		ulWidth += parseFloat(window.getComputedStyle(this.ul, null).getPropertyValue('margin-left'));
-		ulWidth += parseFloat(window.getComputedStyle(this.ul, null).getPropertyValue('margin-right'));
+		ulWidth += parseFloat(window.getComputedStyle(ul, null).getPropertyValue('width'));
+		ulWidth += parseFloat(window.getComputedStyle(ul, null).getPropertyValue('margin-left'));
+		ulWidth += parseFloat(window.getComputedStyle(ul, null).getPropertyValue('margin-right'));
 		
 		return ulWidth;
 	}
@@ -79,7 +85,7 @@ function Column(height) {
 	return {
 		animate: this.animate,
 		generate: this.generate,
-		ul: this.ul,
+		//ul: this.ul,
 		getWidth: this.getWidth
 	};
 }

@@ -18,12 +18,18 @@ generateColumns = function(numRows) {
 
 // Animate the columns using random lengths and times
 animateColumns = function(columns) {
-	var maxInterval = 800;
-	var minInterval = 200;
+	var maxWait = 15000;
+	
+	function setAnimateTimout(i) {
+		var wait = Math.floor((Math.random() * maxWait));
+		
+		setTimeout(function(){
+			columns[i].animate();
+		}, wait);
+	}
 	
 	for (i = 0; i < columns.length; i++) {
-		setInterval(function(index){columns[index].animate();},
-			Math.floor((Math.random() * maxInterval) + minInterval), i);
+		setAnimateTimout(i);
 	}
 }
 
