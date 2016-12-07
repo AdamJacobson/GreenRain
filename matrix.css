@@ -9,6 +9,7 @@ li {
 	-o-transform: scale(-1, 1);
 	-ms-transform: scale(-1, 1);
 	transform: scale(-1, 1);
+	text-shadow: 0 0 10px;
 }
 
 li.visible {
@@ -20,6 +21,7 @@ li.appear {
 }
 
 li.invisible {
+	transition: color 3s linear;
 	color: black;
 }
 
