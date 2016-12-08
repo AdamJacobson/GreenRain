@@ -1,11 +1,11 @@
 // Generate the Columns for the matrix
-generateColumns = function(numRows) {
+generateColumns = function() {
 	var width = document.documentElement.clientWidth;
 	var columns = [];
 	
 	c = 0;
 	do {
-		columns[c] = new Column(numRows);
+		columns[c] = new Column();
 		columns[c].generate();
 		
 		width -= columns[c].getWidth();
@@ -44,12 +44,7 @@ clearMatrix = function() {
 generateMatrixText = function() {
 	clearMatrix();
 	
-	var width = document.documentElement.clientWidth;
-	var height = document.documentElement.clientHeight;
-	
-	var numRows = Math.floor(height / 20);
-	
-	var cols = generateColumns(numRows);
+	var cols = generateColumns();
 	animateColumns(cols);
 }
 

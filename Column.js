@@ -1,28 +1,30 @@
-function Column(height) {
-	this.height = height;
-	
+function Column() {
 	var ul;
 	
 	this.generate = function() {
 		var matrix = document.getElementById("matrix");
-		
+		var height = document.documentElement.clientHeight;
+
 		ul = document.createElement("ul");
+		matrix.appendChild(ul);
 		
-		for (r = 0; r < height; r++) {
+		do {
 			var li = document.createElement("li");
 			li.setAttribute("class", "invisible");
-			li.onclick = toggleColor;
 			li.appendChild(document.createTextNode(randomChar()));
 			
 			ul.appendChild(li);
-		}
-		
-		matrix.appendChild(ul);
+			
+			if (typeof Column.liHeight == 'undefined') {
+				Column.liHeight = parseFloat(window.getComputedStyle(li).getPropertyValue('height'));
+				console.log("set liHeight", Column.liHeight);
+			}
+			
+			height -= Column.liHeight;
+		} while (height - Column.liHeight > 0)
 	}
 	
 	var randomChar = function() {
-		var hiragana = "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをん";
-		var katakana = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ";
 		var halfWidthKana = "ｦｧｨｩｪｫｬｭｮｯｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ";
 		var numerals = "0123456789";
 		
@@ -32,7 +34,7 @@ function Column(height) {
 	}
 	
 	var head = 0;
-	var chars = 12;
+	var chars = 7;
 	var tail = -chars;
 	
 	var animateStep = function() {
@@ -63,9 +65,9 @@ function Column(height) {
 	
 	this.getWidth = function() {
 		var ulWidth = 0;
-		ulWidth += parseFloat(window.getComputedStyle(ul, null).getPropertyValue('width'));
-		ulWidth += parseFloat(window.getComputedStyle(ul, null).getPropertyValue('margin-left'));
-		ulWidth += parseFloat(window.getComputedStyle(ul, null).getPropertyValue('margin-right'));
+		ulWidth += parseFloat(window.getComputedStyle(ul).getPropertyValue('width'));
+		ulWidth += parseFloat(window.getComputedStyle(ul).getPropertyValue('margin-left'));
+		ulWidth += parseFloat(window.getComputedStyle(ul).getPropertyValue('margin-right'));
 		
 		return ulWidth;
 	}
@@ -85,7 +87,6 @@ function Column(height) {
 	return {
 		animate: this.animate,
 		generate: this.generate,
-		//ul: this.ul,
-		getWidth: this.getWidth
+		getWidth: this.getWidth,
 	};
 }
