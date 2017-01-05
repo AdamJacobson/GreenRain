@@ -43,13 +43,14 @@ clearMatrix = function() {
 
 generateMatrixText = function() {
 	clearMatrix();
+	Column.reset();
 	
 	var cols = generateColumns();
 	animateColumns(cols);
 }
 
 window.onresize = function() {
-	generateMatrixText();
+	window.onload();
 }
 
 window.onload = function() {

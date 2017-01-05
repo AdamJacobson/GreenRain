@@ -87,6 +87,10 @@ function Column() {
 	return {
 		animate: this.animate,
 		generate: this.generate,
-		getWidth: this.getWidth,
+		getWidth: this.getWidth
 	};
+}
+
+Column.reset = function() {
+	Column.liHeight = undefined;
 }
